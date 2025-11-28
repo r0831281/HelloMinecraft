@@ -1,0 +1,29 @@
+name: HelloMinecraft
+version: '${project.version}'
+main: com.joqu.hellominecraft.HelloMinecraft
+api-version: '1.21'
+author: jo-qu.com
+commands:
+  ping:
+    description: Responds with pong.
+    usage: /ping
+    permission: helloMinecraft.ping
+  chest:
+    description: Open your personal paged chest.
+    usage: /chest
+    permission: hellominecraft.chest
+  givepages:
+    description: Set a player's page count (admin)
+    usage: /givepages <player> <count>
+    permission: hellominecraft.givepages
+
+permissions:
+  helloMinecraft.ping:
+    description: Allows the use of the /ping command.
+    default: true
+  hellominecraft.chest:
+    description: Allows opening the personal chest.
+    default: true
+  hellominecraft.givepages:
+    description: Allows setting another player's page count.
+    default: op
