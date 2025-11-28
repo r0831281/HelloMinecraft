@@ -1,0 +1,43 @@
+# Maven
+/target/
+
+# IntelliJ
+*.iml
+.idea/
+out/
+
+# VSCode
+.vscode/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+
+# Logs
+logs/
+*.log
+
+# Build artifacts
+*.jar
+*.war
+
+# Eclipse
+.classpath
+.project
+.settings/
+
+# Gradle
+.gradle/
+
+# Generated
+generated-sources/
+
+# Plugin runtime data (ignore player data created during testing)
+/players/
+
+# Temporary
+tmp/
+
+# GitHub chatmodes (editor/runtime chat mode files)
+.github/chatmodes/
