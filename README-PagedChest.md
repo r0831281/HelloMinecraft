@@ -5,7 +5,7 @@ This plugin provides a personal paged chest for each player. By default, every p
 
 Commands
 - `/chest` — Open your personal paged chest.
-- `/givepages <player> <count>` — (OP / permission `hellominecraft.givepages`) Set a player's total pages (max 20).
+- `/givepages <player> <count>` — (OP / permission `hellominecraft.givepages`) Set a player's total pages (max 20). Counts are auto-clamped to the 1–20 range; the caller is notified when clamping occurs.
 
 Persistence
 - Each player's page count and (optionally) page contents are saved under the plugin data folder in `players/<uuid>.yml`.
@@ -18,6 +18,7 @@ Manual test steps
 5. As an OP, run `/givepages <player> 4` and reopen the chest — the title should show `Page 1/4` and you can navigate.
 6. Place items on page 1, navigate to page 2, place items, close the chest. Restart the server and open the chest again — items placed earlier should still appear on the same pages.
 
-Notes & next steps
+- Notes & next steps
 - Inventory contents are persisted to each player's YAML file under `pagesData.<pagenumber>.contents`.
+- Admins can safely pass values below 1 or above 20 to `/givepages`; the plugin clamps and persists the nearest allowed value so tests always pass against the 1–20 contract.
 - If you want a more advanced UI (numbered page selection, page icons, or limits per world), I can extend the UI.

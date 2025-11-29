@@ -60,7 +60,7 @@ public class PagedChest implements Listener {
 
         return inv;
     }
-    }
+
 
     private ItemStack createNavItem(Material mat, String name) {
         ItemStack it = new ItemStack(mat);

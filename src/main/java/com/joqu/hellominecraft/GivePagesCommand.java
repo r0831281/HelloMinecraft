@@ -41,11 +41,11 @@ public class GivePagesCommand implements CommandExecutor {
             return true;
         }
 
-        if (count < 1) {
-            sender.sendMessage("Page count must be 1 or greater.");
-            return true;
+        int clampedCount = Math.max(1, Math.min(count, 20));
+        if (clampedCount != count) {
+            sender.sendMessage("Page count adjusted to within 1-20 range.");
         }
-        if (count > 20) count = 20; // hard limit
+        count = clampedCount;
 
         Player online = Bukkit.getPlayerExact(targetName);
         UUID uuid;

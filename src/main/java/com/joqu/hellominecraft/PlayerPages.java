@@ -7,7 +7,6 @@ import org.bukkit.inventory.ItemStack;
 import java.io.File;
 import java.io.IOException;
 import java.util.*;
-import java.util.stream.Collectors;
 
 /**
  * Per-player data holder. One file per player is stored under <plugin data folder>/players/<uuid>.yml
@@ -39,7 +38,8 @@ public class PlayerPages {
     }
 
     public ItemStack[] getPageContents(int page) {
-        return contents.get(page);
+        ItemStack[] stored = contents.get(page);
+        return stored == null ? null : Arrays.copyOf(stored, stored.length);
     }
 
     public void setPageContents(int page, ItemStack[] items) {
@@ -47,7 +47,9 @@ public class PlayerPages {
         if (items == null) {
             contents.remove(page);
         } else {
-            contents.put(page, items);
+            ItemStack[] normalized = new ItemStack[54];
+            System.arraycopy(items, 0, normalized, 0, Math.min(items.length, normalized.length));
+            contents.put(page, normalized);
         }
     }
 
@@ -68,8 +70,7 @@ public class PlayerPages {
             int page = e.getKey();
             ItemStack[] items = e.getValue();
             if (items != null) {
-                // convert to list for yaml
-                List<ItemStack> list = Arrays.stream(items).collect(Collectors.toList());
+                List<ItemStack> list = Arrays.asList(Arrays.copyOf(items, 54));
                 cfg.set("pagesData." + page + ".contents", list);
             }
         }
@@ -94,8 +95,13 @@ public class PlayerPages {
                     int page = Integer.parseInt(key);
                     List<?> list = cfg.getList("pagesData." + key + ".contents", Collections.emptyList());
                     if (!list.isEmpty()) {
-                        // attempt to cast to ItemStack objects
-                        ItemStack[] arr = list.stream().filter(Objects::nonNull).map(o -> (ItemStack) o).toArray(ItemStack[]::new);
+                        ItemStack[] arr = new ItemStack[54];
+                        for (int i = 0; i < Math.min(list.size(), arr.length); i++) {
+                            Object entry = list.get(i);
+                            if (entry instanceof ItemStack stack) {
+                                arr[i] = stack;
+                            }
+                        }
                         pp.setPageContents(page, arr);
                     }
                 } catch (NumberFormatException ignored) {
