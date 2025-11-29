@@ -73,14 +73,8 @@
             <groupId>io.papermc.paper</groupId>
             <artifactId>paper-api</artifactId>
             <version>1.21-R0.1-SNAPSHOT</version>
-            <scope>provided</scope>
-        </dependency>
-        <!-- Include Paper API for tests so unit tests can use Bukkit classes during test runs -->
-        <dependency>
-            <groupId>io.papermc.paper</groupId>
-            <artifactId>paper-api</artifactId>
-            <version>1.21-R0.1-SNAPSHOT</version>
-            <scope>test</scope>
+            <!-- Use compile scope so IDEs resolve org.bukkit imports; change back to 'provided' if you prefer not to include the API on the classpath at runtime. -->
+            <scope>compile</scope>
         </dependency>
         <!-- JUnit for testing -->
         <dependency>
