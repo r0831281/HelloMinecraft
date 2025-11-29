@@ -87,6 +87,20 @@ public class PagedChest implements Listener {
         }
     }
 
+    public void flushAllOpenInventories() {
+        for (Player player : Bukkit.getOnlinePlayers()) {
+            saveOpenInventory(player);
+            var view = player.getOpenInventory();
+            if (view != null) {
+                String title = view.getTitle();
+                if (title != null && title.startsWith(TITLE_PREFIX)) {
+                    player.closeInventory();
+                }
+            }
+            openPage.remove(player.getUniqueId());
+        }
+    }
+
     private void saveOpenInventory(Player player) {
         if (player.getOpenInventory() == null) return;
         var view = player.getOpenInventory();

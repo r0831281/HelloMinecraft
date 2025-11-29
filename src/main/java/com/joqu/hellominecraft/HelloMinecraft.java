@@ -10,7 +10,7 @@ public class HelloMinecraft extends JavaPlugin {
     public void onEnable() {
         // This code runs when the server starts the plugin
         getLogger().info("---------------------------------------");
-        getLogger().info("   Hello World! The plugin is alive!   ");
+        getLogger().info(" Hello Minecraft! The plugin is alive! ");
         getLogger().info("---------------------------------------");
 
         // --- NEW: Register the /ping command ---
@@ -28,7 +28,9 @@ public class HelloMinecraft extends JavaPlugin {
 
     @Override
     public void onDisable() {
-        // This code runs when the server stops
+        if (pagedChest != null) {
+            pagedChest.flushAllOpenInventories();
+        }
         getLogger().info("HelloWorld plugin is shutting down!");
     }
 }
