@@ -10,6 +10,7 @@ import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import net.kyori.adventure.text.Component;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -44,9 +45,8 @@ public class PagedChest implements Listener {
         player.openInventory(inv);
     }
 
-
     private Inventory createInventoryFor(UUID uuid, int page, int pages) {
-        Inventory inv = Bukkit.createInventory(null, 54, TITLE_PREFIX + "Page " + page + "/" + pages);
+        Inventory inv = Bukkit.createInventory(null, 54, Component.text(TITLE_PREFIX + "Page " + page + "/" + pages));
 
         // Fill with previously saved content if present
         PlayerPages pp = PlayerPages.load(plugin.getDataFolder(), uuid);
@@ -59,6 +59,7 @@ public class PagedChest implements Listener {
         inv.setItem(53, createNavItem(Material.ARROW, "Next"));
 
         return inv;
+    }
     }
 
     private ItemStack createNavItem(Material mat, String name) {
